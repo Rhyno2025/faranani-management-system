@@ -8,6 +8,19 @@ The frontend is a React 19 + Vite + Tailwind single-page app. The backend is an
 Express API that stores everything in a local SQLite file through Node's built-in
 `node:sqlite` module, so there is no external database to provision.
 
+## Live demo (GitHub Pages)
+
+A permanent, public demo of the interface:
+
+**https://rhyno2025.github.io/faranani-management-system/**
+
+It opens already signed in as the administrator and runs entirely in the browser
+from a recorded dataset (`src/demo/snapshot.json`), so there is no server, no
+database and no client data behind it — changes made there are not saved. Rebuild
+the dataset with `node scripts/build-demo-snapshot.mjs` after changing the data
+model. GitHub Pages cannot run Node or SQLite; the real system is deployed as
+described under [Deployment](#deployment).
+
 ## Requirements
 
 | Tool | Version |
