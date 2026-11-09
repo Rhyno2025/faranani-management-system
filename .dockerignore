@@ -1,0 +1,16 @@
+node_modules
+dist
+.git
+.gitignore
+.tools
+.freebuff
+cpanel-deploy
+cpanel-deploy.zip
+screenshots
+tests
+*.log
+.env
+.env.local
+server/data/*
+uploads/*
+README.md

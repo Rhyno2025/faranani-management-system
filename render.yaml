@@ -1,0 +1,17 @@
+# Render blueprint — deploys this repo as a Docker web service.
+# Connect the GitHub repo in Render and it reads this file automatically.
+services:
+  - type: web
+    name: faranani-management-system
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Optional: keep the SQLite file on a mounted disk instead of the
+      # container filesystem (requires a paid instance with a disk added).
+      # - key: FG_DB_PATH
+      #   value: /var/data/faranani.db

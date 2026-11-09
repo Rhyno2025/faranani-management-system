@@ -1,0 +1,20 @@
+node_modules
+dist
+
+# Runtime data: SQLite database, WAL files, backups, signing secret
+server/data/*
+!server/data/.gitkeep
+
+# Uploaded client documents
+uploads/*
+!uploads/.gitkeep
+
+# Release bundles / local tool binaries
+cpanel-deploy.zip
+.tools/
+
+# Environment & local logs
+.env
+.env.local
+*.log
+.DS_Store
