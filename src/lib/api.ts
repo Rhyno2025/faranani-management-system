@@ -2,6 +2,8 @@
 // API client — credentials: 'include' so httpOnly session cookies flow.
 // Normalises errors into a single { error } shape for the UI.
 // ---------------------------------------------------------------------------
+import { demoRequest, demoUpload, demoDownload, isDemo } from '../demo/mock';
+
 export class ApiError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -11,6 +13,7 @@ export class ApiError extends Error {
 }
 
 async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+  if (isDemo) return demoRequest<T>(method, path, body);
   const res = await fetch(`/api${path}`, {
     method,
     credentials: 'include',
@@ -37,6 +40,7 @@ export const api = {
 
 /** Multipart upload helper (documents, photos, logo). */
 export async function uploadFile<T = any>(path: string, file: File, fields: Record<string, string> = {}): Promise<T> {
+  if (isDemo) return demoUpload<T>(path, fields);
   const fd = new FormData();
   fd.append('file', file);
   for (const [k, v] of Object.entries(fields)) fd.append(k, v);
@@ -52,6 +56,7 @@ export function downloadUrl(path: string): string {
 
 /** Opens a permission-checked download. */
 export async function downloadFile(path: string, fallbackName: string) {
+  if (isDemo) { demoDownload(fallbackName); return; }
   const res = await fetch(`/api${path}`, { credentials: 'include' });
   if (!res.ok) {
     let msg = 'Download failed';
