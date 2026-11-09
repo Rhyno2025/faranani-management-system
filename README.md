@@ -82,6 +82,25 @@ or 24.x. Upload the bundle, install production dependencies, make `server/data` 
 session cookies are `Secure`. Full step-by-step instructions, including
 troubleshooting, are in [`cpanel-deploy/README-DEPLOY.md`](cpanel-deploy/README-DEPLOY.md).
 
+### Hosting a client-facing link on a free Node host
+
+`Dockerfile` and `render.yaml` let a host build and run the app with no manual
+configuration:
+
+1. Sign in at <https://render.com> with the GitHub account that owns this repo and
+grant Render access to the private repository.
+2. **New → Blueprint**, select `faranani-management-system`. Render reads
+`render.yaml`, builds the `Dockerfile` and gives you
+`https://faranani-management-system.onrender.com`.
+3. Open the URL and sign in with the seeded administrator account from
+[`cpanel-deploy/README-DEPLOY.md`](cpanel-deploy/README-DEPLOY.md).
+
+Free instances sleep after about 15 minutes of inactivity, so the first visit takes
+30–60 seconds to wake. The free container filesystem is also **ephemeral** — the
+SQLite file and uploads reset on redeploy or restart, and the app reseeds itself.
+For durable records, add a persistent disk and set `FG_DB_PATH` to its mount path
+(paid instance), or use the cPanel route above, which keeps data on a real disk.
+
 ## Data and backups
 
 The live database is `server/data/faranani.db` (with `-wal`/`-shm` side files) and
